@@ -1,0 +1,39 @@
+# ILLUSTRATIVE ONLY. Harborview Provisions is a fictional company; every figure below is
+# made up to demonstrate the model and does not describe any real business or security.
+#
+# The smallest useful model file: one case, flat drivers given as scalars, end-of-year
+# discounting, and no market price (so no upside rows).
+
+company:
+  name: Harborview Provisions Co.
+  ticker: HBVP
+  base_year: 2025
+  description: >
+    Fictional regional packaged-foods producer. Low growth, stable margins, steady capex.
+
+financials:
+  revenue: 2840.0
+  net_debt: 1150.0
+  diluted_shares: 118.0
+
+settings:
+  projection_years: 5
+  mid_year_convention: false
+
+assumptions:
+  revenue_growth: [0.035, 0.032, 0.030, 0.028, 0.025]
+  ebitda_margin: 0.155
+  da_pct_revenue: 0.032
+  capex_pct_revenue: 0.035
+  nwc_pct_revenue: 0.09
+  tax_rate: 0.26
+  wacc:
+    risk_free_rate: 0.0425
+    beta: 0.70
+    equity_risk_premium: 0.0550
+    size_premium: 0.0150
+    pre_tax_cost_of_debt: 0.0600
+    target_debt_to_equity: 0.45
+  terminal:
+    growth_rate: 0.020
+    exit_multiple: 9.5

@@ -1,0 +1,62 @@
+# ILLUSTRATIVE ONLY. Cobalt Cloud Systems is a fictional company; every figure below is
+# made up to demonstrate the model and does not describe any real business or security.
+#
+# What this example exercises:
+#   * a 7-year projection for a business still scaling into its margins
+#   * an unlevered (asset) beta relevered at the target capital structure
+#   * net cash (negative net debt) and negative working capital from deferred revenue
+#   * a non-USD reporting currency
+
+company:
+  name: Cobalt Cloud Systems SE
+  ticker: CBLT
+  base_year: 2025
+  currency: EUR
+  units: millions
+  illustrative: true
+  description: >
+    Fictional vertical SaaS vendor for logistics operators. Subscription revenue billed
+    annually in advance, so working capital is negative and grows with the business.
+
+financials:
+  revenue: 410.0
+  net_debt: -185.0          # net cash
+  diluted_shares: 62.5
+  share_price: 41.00
+
+settings:
+  projection_years: 7
+  mid_year_convention: true
+
+assumptions:
+  revenue_growth: [0.28, 0.24, 0.20, 0.17, 0.14, 0.11, 0.08]
+  ebitda_margin: [0.14, 0.18, 0.22, 0.26, 0.29, 0.31, 0.32]
+  da_pct_revenue: 0.035
+  capex_pct_revenue: 0.030
+  nwc_pct_revenue: -0.08    # deferred revenue exceeds receivables
+  tax_rate: 0.25
+  wacc:
+    risk_free_rate: 0.0275
+    unlevered_beta: 1.15
+    equity_risk_premium: 0.0550
+    size_premium: 0.0100
+    pre_tax_cost_of_debt: 0.0550
+    target_debt_to_equity: 0.10
+  terminal:
+    growth_rate: 0.030
+    exit_multiple: 11.5
+
+scenarios:
+  bear:
+    revenue_growth: [0.18, 0.15, 0.12, 0.10, 0.08, 0.06, 0.05]
+    ebitda_margin: [0.12, 0.14, 0.17, 0.19, 0.21, 0.22, 0.23]
+    terminal: {growth_rate: 0.025, exit_multiple: 10.0}
+  bull:
+    revenue_growth: [0.34, 0.30, 0.26, 0.22, 0.18, 0.14, 0.10]
+    ebitda_margin: [0.15, 0.20, 0.25, 0.29, 0.32, 0.34, 0.35]
+    terminal: {growth_rate: 0.0325, exit_multiple: 12.5}
+
+sensitivity:
+  wacc_step: 0.005
+  growth_step: 0.0025
+  multiple_step: 1.0
