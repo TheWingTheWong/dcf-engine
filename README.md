@@ -1,5 +1,7 @@
 # dcf-engine
 
+[![ci](https://github.com/TheWingTheWong/dcf-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/TheWingTheWong/dcf-engine/actions/workflows/ci.yml)
+
 A discounted cash flow valuation engine in Python. You describe a company in a short YAML
 file; it projects unlevered free cash flow, builds WACC from CAPM, values the business with
 both a perpetuity growth and an exit multiple terminal value, and writes an Excel model in
