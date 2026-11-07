@@ -1,0 +1,60 @@
+# ILLUSTRATIVE ONLY. Acme Robotics is a fictional company; every figure below is made up
+# to demonstrate the model and does not describe any real business or security.
+
+company:
+  name: Acme Robotics Inc.
+  ticker: ACME
+  base_year: 2025
+  currency: USD
+  units: millions
+  illustrative: true
+  description: >
+    Fictional maker of warehouse automation systems: hardware sold with multi-year
+    service contracts. Mid-teens growth tapering as the installed base matures.
+
+financials:
+  revenue: 1250.0             # FY2025A
+  net_working_capital: 150.0  # FY2025A, used for the first-year change in NWC
+  net_debt: 320.0             # total debt less cash
+  diluted_shares: 84.0
+  share_price: 38.50
+
+settings:
+  projection_years: 5
+  mid_year_convention: true
+  primary_scenario: base
+
+assumptions:
+  revenue_growth: [0.16, 0.14, 0.12, 0.10, 0.08]
+  ebitda_margin: [0.170, 0.180, 0.190, 0.195, 0.200]
+  da_pct_revenue: 0.045
+  capex_pct_revenue: [0.060, 0.058, 0.055, 0.052, 0.050]
+  nwc_pct_revenue: 0.12
+  tax_rate: 0.24
+  wacc:
+    risk_free_rate: 0.0425
+    beta: 1.20
+    equity_risk_premium: 0.055
+    size_premium: 0.0
+    pre_tax_cost_of_debt: 0.0650
+    target_debt_to_equity: 0.25
+  terminal:
+    growth_rate: 0.025
+    exit_multiple: 11.0
+
+scenarios:
+  bear:
+    revenue_growth: [0.08, 0.07, 0.06, 0.05, 0.04]
+    ebitda_margin: [0.150, 0.155, 0.160, 0.160, 0.165]
+    wacc: {beta: 1.35}
+    terminal: {growth_rate: 0.020, exit_multiple: 9.0}
+  bull:
+    revenue_growth: [0.22, 0.19, 0.16, 0.13, 0.10]
+    ebitda_margin: [0.180, 0.195, 0.210, 0.220, 0.225]
+    terminal: {growth_rate: 0.030, exit_multiple: 13.0}
+
+sensitivity:
+  wacc_step: 0.005
+  growth_step: 0.0025
+  multiple_step: 1.0
+  steps: 2
