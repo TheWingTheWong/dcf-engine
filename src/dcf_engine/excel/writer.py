@@ -162,6 +162,7 @@ class WorkbookBuilder:
         first = self.wb.active
         first.title = SUMMARY
         self.sheets = {SUMMARY: _Sheet(first, label_width=48, data_width=12.5)}
+        first.page_setup.fitToHeight = 1  # summary and football field print on one page
         for name in (ASSUMPTIONS, WACC, FCF, VALUATION, SENSITIVITY):
             self.sheets[name] = _Sheet(self.wb.create_sheet(name))
 
