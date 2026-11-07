@@ -1,11 +1,11 @@
 """Weighted average cost of capital from CAPM.
 
-    levered beta      = beta_u * (1 + (1 - t) * D/E)          (Hamada, only if beta is unlevered)
-    cost of equity    = r_f + beta_L * ERP + size premium
-    after-tax k_d     = k_d * (1 - t)
-    E / (D + E)       = 1 / (1 + D/E)
-    D / (D + E)       = (D/E) / (1 + D/E)
-    WACC              = E/(D+E) * k_e + D/(D+E) * k_d * (1 - t)
+levered beta      = beta_u * (1 + (1 - t) * D/E)          (Hamada, only if beta is unlevered)
+cost of equity    = r_f + beta_L * ERP + size premium
+after-tax k_d     = k_d * (1 - t)
+E / (D + E)       = 1 / (1 + D/E)
+D / (D + E)       = (D/E) / (1 + D/E)
+WACC              = E/(D+E) * k_e + D/(D+E) * k_d * (1 - t)
 """
 
 from __future__ import annotations
@@ -31,9 +31,7 @@ def relever_beta(unlevered_beta: float, debt_to_equity: float, tax_rate: float) 
 
 def compute_wacc(capital: CostOfCapital, tax_rate: float) -> WaccResult:
     de = capital.target_debt_to_equity
-    beta = (
-        relever_beta(capital.beta, de, tax_rate) if capital.beta_is_unlevered else capital.beta
-    )
+    beta = relever_beta(capital.beta, de, tax_rate) if capital.beta_is_unlevered else capital.beta
     cost_of_equity = (
         capital.risk_free_rate + beta * capital.equity_risk_premium + capital.size_premium
     )

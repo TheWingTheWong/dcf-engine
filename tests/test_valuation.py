@@ -109,7 +109,7 @@ def test_sensitivity_monotonic(simple_model):
     g_rows = r.growth_sensitivity.values
     for row in g_rows:  # higher terminal growth -> higher price
         assert list(row) == sorted(row)
-    for col in zip(*g_rows):  # higher WACC -> lower price
+    for col in zip(*g_rows, strict=True):  # higher WACC -> lower price
         assert list(col) == sorted(col, reverse=True)
 
 
