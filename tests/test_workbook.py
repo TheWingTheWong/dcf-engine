@@ -286,9 +286,12 @@ def _assert_matches_engine(ev: Evaluator, result: ValuationResult) -> None:
         assert ev(f"summary/ff/{key}_sensitivity/low") == approx(table.low)
         assert ev(f"summary/ff/{key}_sensitivity/high") == approx(table.high)
 
-    prices = [s.perpetuity.share_price for s in result.scenarios]
-    assert ev("summary/ff/perpetuity/low") == approx(min(prices))
-    assert ev("summary/ff/perpetuity/high") == approx(max(prices))
+    if len(result.scenarios) > 1:
+        prices = [s.perpetuity.share_price for s in result.scenarios]
+        assert ev("summary/ff/perpetuity/low") == approx(min(prices))
+        assert ev("summary/ff/perpetuity/high") == approx(max(prices))
+    else:
+        assert "summary/ff/perpetuity/low" not in ev.layout.cells
 
 
 def test_workbook_evaluates_to_engine_values(acme):

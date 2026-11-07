@@ -91,7 +91,12 @@ class Scenario:
 
     @property
     def label(self) -> str:
-        return f"{self.name.replace('_', ' ').title()} case"
+        """Display name: ``bear`` -> ``Bear case``; ``mgmt_case`` -> ``Mgmt case``."""
+        words = self.name.replace("_", " ").replace("-", " ").split()
+        if words and words[-1].lower() == "case":
+            words = words[:-1]
+        text = " ".join(words) or self.name
+        return f"{text[0].upper()}{text[1:]} case"
 
 
 @dataclass(frozen=True)

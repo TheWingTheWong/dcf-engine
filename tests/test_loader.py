@@ -77,3 +77,16 @@ def test_invalid_yaml(tmp_path):
     bad.write_text("company: [unclosed")
     with pytest.raises(ModelError, match="invalid YAML"):
         load_model(bad)
+
+
+@pytest.mark.parametrize(
+    ("name", "label"),
+    [
+        ("bear", "Bear case"),
+        ("management_case", "Management case"),
+        ("low-rates", "Low rates case"),
+    ],
+)
+def test_scenario_labels(simple_raw, name, label):
+    simple_raw["scenarios"] = {name: {}}
+    assert parse_model(simple_raw).scenario(name).label == label

@@ -1105,18 +1105,20 @@ class WorkbookBuilder:
             end = ref(VALUATION, self.last_scen_col, first.row, from_sheet=VALUATION)
             return f"{first.ref(SUMMARY)}:{end}"
 
-        span = (
-            f"{m.scenarios[0].label.lower()} to {m.scenarios[-1].label.lower()}"
-            if len(m.scenarios) > 1
-            else m.scenarios[0].label.lower()
-        )
-        bars = [
-            (
-                "ff/perpetuity",
-                f"DCF perpetuity growth, {span}",
-                scen_range("perpetuity/share_price"),
-            ),
-            ("ff/exit", f"DCF exit multiple, {span}", scen_range("exit/share_price")),
+        # Scenario bars only make sense with a spread of cases; a single case would plot
+        # as a zero-width bar, so it is represented by the sensitivity grids alone.
+        bars: list[tuple[str, str, str]] = []
+        if len(m.scenarios) > 1:
+            span = f"{m.scenarios[0].label.lower()} to {m.scenarios[-1].label.lower()}"
+            bars += [
+                (
+                    "ff/perpetuity",
+                    f"DCF perpetuity growth, {span}",
+                    scen_range("perpetuity/share_price"),
+                ),
+                ("ff/exit", f"DCF exit multiple, {span}", scen_range("exit/share_price")),
+            ]
+        bars += [
             (
                 "ff/growth_sensitivity",
                 "Sensitivity: WACC vs. terminal growth",
