@@ -62,13 +62,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
             return 0
 
+        if args.out and args.out.suffix.lower() != ".xlsx":
+            raise ModelError(f"--out must be an .xlsx path, got {args.out}")
         model = _with_primary(model, args.scenario)
         result = value_model(model)
         if not args.quiet:
             sys.stdout.write(render(result))
         if args.out:
-            if args.out.suffix.lower() != ".xlsx":
-                raise ModelError(f"--out must be an .xlsx path, got {args.out}")
             write_workbook(result, args.out)
             if not args.quiet:
                 print()
