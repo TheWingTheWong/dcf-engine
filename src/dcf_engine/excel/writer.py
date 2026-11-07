@@ -186,6 +186,8 @@ class WorkbookBuilder:
         self._sensitivity()
         self._summary()
         self.wb.active = 0
+        # openpyxl stores no cached results, so ask the spreadsheet app to calculate on open.
+        self.wb.calculation.fullCalcOnLoad = True
         return self.wb, self.layout
 
     # ------------------------------------------------------------------ Assumptions
@@ -1150,7 +1152,7 @@ class WorkbookBuilder:
         chart.gapWidth = 60
         chart.title = None
         chart.legend = None
-        chart.height = 6.5
+        chart.height = 7.5
         chart.width = 17
         cats = Reference(sh.ws, min_col=LABEL_COL, min_row=first_bar_row, max_row=last_bar_row)
         for col in (low_col, spread_col):
@@ -1168,7 +1170,7 @@ class WorkbookBuilder:
         chart.y_axis.crosses = "max"  # keep the price axis at the bottom after flipping
         chart.x_axis.delete = False
         chart.y_axis.delete = False
-        chart.y_axis.numFmt = self.price_fmt.split(";")[0]
+        chart.y_axis.numFmt = st.axis_price_format(m.company.currency)
         chart.y_axis.majorGridlines = None
         chart.y_axis.title = f"Implied share price ({m.company.currency})"
         sh.ws.add_chart(chart, f"A{last_bar_row + 2}")

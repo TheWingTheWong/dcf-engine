@@ -55,6 +55,11 @@ def price_format(currency: str) -> str:
     return f'"{symbol}"#,##0.00_);("{symbol}"#,##0.00)'
 
 
+def axis_price_format(currency: str) -> str:
+    symbol = _CURRENCY_SYMBOLS.get(currency.upper())
+    return f'"{symbol}"#,##0' if symbol else "#,##0"
+
+
 def font(color: str = BLACK, *, bold: bool = False, italic: bool = False, size: int = FONT_SIZE):
     return Font(name=FONT_NAME, size=size, bold=bold, italic=italic, color=color)
 
